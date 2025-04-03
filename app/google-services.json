@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "959369220437",
+    "project_id": "postal-3304b",
+    "storage_bucket": "postal-3304b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959369220437:android:5add37ca9216c04cc11fdc",
+        "android_client_info": {
+          "package_name": "com.example.postal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVxy8vhL_C_hizzoEcMzedaOcZlgqHdo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

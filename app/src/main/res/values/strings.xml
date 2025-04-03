@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Postal</string>
+    <string-array name="status_options">
+        <item>Înregistrat</item>
+        <item>În tranzit</item>
+        <item>Livrat</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="16dp"
+    android:layout_marginBottom="12dp"
+    android:elevation="2dp">
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nume Destinatar"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Adresă"
+        android:textColor="#555" />
+
+    <TextView
+        android:id="@+id/tvWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Greutate: 0kg" />
+
+    <TextView
+        android:id="@+id/tvQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bucăți: 0" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Preț: 0 lei" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Status: în procesare"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_red_dark" />
+
+    <Button
+        android:id="@+id/btnComplete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizează"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@android:color/white" />
+</LinearLayout>
