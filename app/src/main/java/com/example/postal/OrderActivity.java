@@ -60,9 +60,12 @@ public class OrderActivity extends AppCompatActivity {
         etQuantity.addTextChangedListener(watcher);
 
         btnSubmitOrder.setOnClickListener(v -> submitOrder());
+        Button btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> {
-            auth.signOut();
-            startActivity(new Intent(this, LoginActivity.class));
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(OrderActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
             finish();
         });
     }

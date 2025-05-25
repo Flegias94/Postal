@@ -22,7 +22,6 @@
         <activity android:name=".AdminActivity" />
         <activity android:name=".ClientActivity" />
         <activity android:name=".OrderActivity" />
-        <activity android:name=".OrderHistoryActivity" />
         <activity android:name=".AdminOrdersActivity" />
 
 

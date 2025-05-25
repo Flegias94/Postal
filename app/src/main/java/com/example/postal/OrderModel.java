@@ -1,5 +1,7 @@
 package com.example.postal;
 
+import com.google.firebase.Timestamp;
+
 public class OrderModel {
     private String id;
     private String userId;
@@ -9,6 +11,7 @@ public class OrderModel {
     private int quantity;
     private double price;
     private String status;
+    private Timestamp timestamp; // ✅ Adăugat
 
     public OrderModel() {}
 
@@ -35,4 +38,8 @@ public class OrderModel {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    // ✅ Getter & Setter pentru Timestamp
+    public Timestamp getTimestamp() { return timestamp; }
+    public void setTimestamp(Timestamp timestamp) { this.timestamp = timestamp; }
 }

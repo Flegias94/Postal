@@ -10,42 +10,50 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.Timestamp;
-
+import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
-    private final List<Map<String, Object>> orderList;
+    private List<OrderModel> orders;
 
-    public OrderAdapter(List<Map<String, Object>> orderList) {
-        this.orderList = orderList;
+    public OrderAdapter(List<OrderModel> orders) {
+        this.orders = orders;
     }
 
     @NonNull
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_order, parent, false);
         return new OrderViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        Map<String, Object> order = orderList.get(position);
+        OrderModel order = orders.get(position);
 
-        holder.tvReceiverName.setText("Destinatar: " + order.get("receiverName"));
-        holder.tvAddress.setText("Adresă: " + order.get("receiverAdress"));
-        holder.tvWeight.setText("Greutate: " + order.get("weight") + " kg");
-        holder.tvQuantity.setText("Cantitate: " + order.get("quantity"));
-        holder.tvPrice.setText("Preț: " + order.get("price") + " lei");
+        holder.tvReceiverName.setText("Destinatar: " + order.getReceiverName());
+        holder.tvAddress.setText("Adresă: " + order.getReceiverAdress());
+        holder.tvWeight.setText("Greutate: " + order.getWeight() + " kg");
+        holder.tvQuantity.setText("Cantitate: " + order.getQuantity());
+        holder.tvPrice.setText("Preț: " + order.getPrice() + " lei");
 
-        Timestamp timestamp = (Timestamp) order.get("timestamp");
-        holder.tvDate.setText("Dată: " + timestamp.toDate().toString());
+        // Formatăm data frumos
+        Timestamp timestamp = order.getTimestamp();
+        if (timestamp != null) {
+            String formattedDate = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+                    .format(timestamp.toDate());
+            holder.tvDate.setText("Dată: " + formattedDate);
+        } else {
+            holder.tvDate.setText("Dată: necunoscută");
+        }
 
-        String status = String.valueOf(order.get("status"));
+        String status = order.getStatus();
         holder.tvStatus.setText("Status: " + status);
 
-        if (status.equalsIgnoreCase("completat")) {
+        if ("completat".equalsIgnoreCase(status)) {
             holder.tvStatus.setTextColor(Color.parseColor("#4CAF50")); // verde
         } else {
             holder.tvStatus.setTextColor(Color.parseColor("#F44336")); // roșu
@@ -54,7 +62,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     @Override
     public int getItemCount() {
-        return orderList.size();
+        return orders.size();
     }
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {

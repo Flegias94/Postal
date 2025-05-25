@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // 🔙 Toolbar cu săgeată de întoarcere
+        // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -36,11 +36,11 @@ public class RegisterActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Creare cont nou");
         }
 
-        // Inițializăm Firebase
+        // Firebase
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // Legăm componentele UI
+        // View binding
         etFirstName = findViewById(R.id.etFirstName);
         etLastName = findViewById(R.id.etLastName);
         etEmail = findViewById(R.id.etEmail);
@@ -72,23 +72,29 @@ public class RegisterActivity extends AppCompatActivity {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener(authResult -> {
                     String uid = Objects.requireNonNull(auth.getCurrentUser()).getUid();
+                    String senderName = firstName + " " + lastName;
+
                     Map<String, Object> userMap = new HashMap<>();
                     userMap.put("email", email);
                     userMap.put("firstName", firstName);
                     userMap.put("lastName", lastName);
+                    userMap.put("senderName", senderName); // 💡 important
                     userMap.put("role", "client");
 
                     db.collection("users").document(uid).set(userMap)
                             .addOnSuccessListener(unused -> {
                                 Toast.makeText(this, "Cont creat cu succes!", Toast.LENGTH_SHORT).show();
-                                finish(); // Închide activitatea
+                                finish(); // back
                             })
-                            .addOnFailureListener(e -> Toast.makeText(this, "Eroare Firestore: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                            .addOnFailureListener(e ->
+                                    Toast.makeText(this, "Eroare Firestore: " + e.getMessage(), Toast.LENGTH_LONG).show()
+                            );
                 })
-                .addOnFailureListener(e -> Toast.makeText(this, "Eroare cont: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, "Eroare cont: " + e.getMessage(), Toast.LENGTH_LONG).show()
+                );
     }
 
-    // Opțional, închide activity la apăsarea săgeții
     @Override
     public boolean onSupportNavigateUp() {
         finish();
